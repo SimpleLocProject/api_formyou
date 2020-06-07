@@ -9,9 +9,9 @@ Starter for api project with :
 
 ## Installation
 
-`git clone git@github.com:luca-montaigut/api_rails_6_boilerplate.git`
+`git clone git@github.com:luca-montaigut/api_myloc.git`
 
-`cd api_rails_6_boilerplate`
+`cd api_myloc`
 
 `bundle install`
 
