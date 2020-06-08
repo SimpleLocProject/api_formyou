@@ -17,10 +17,8 @@ ActiveRecord::Schema.define(version: 2020_06_08_115055) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.bigint "course_categories_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["course_categories_id"], name: "index_categories_on_course_categories_id"
   end
 
   create_table "jwt_blacklists", force: :cascade do |t|
@@ -39,6 +37,11 @@ ActiveRecord::Schema.define(version: 2020_06_08_115055) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name", default: ""
+    t.string "last_name", default: ""
+    t.boolean "can_access", default: false
+    t.boolean "is_admin", default: false
+    t.boolean "is_teacher", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
