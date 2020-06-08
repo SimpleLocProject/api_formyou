@@ -5,6 +5,11 @@ class User < ApplicationRecord
 
   has_many :usersessions
 
+  scope :is_teacher, -> { where(is_teacher: 1) } # User.is_teacher -> Renvoit la liste des profs
+  scope :is_admin, -> { where(is_admin: 1) } # User.is_admin -> Renvoit la liste des profs
+  scope :is_student, -> { where(can_access: 1) } # User.can_access -> Renvoit la liste des students
+
+
   # after_create :welcome_send
 
   def welcome_send

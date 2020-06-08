@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(version: 2020_06_08_203101) do
   end
 
   create_table "course_categories", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.bigint "course_id"
     t.bigint "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_course_categories_on_category_id"
     t.index ["course_id"], name: "index_course_categories_on_course_id"
   end

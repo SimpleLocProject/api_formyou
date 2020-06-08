@@ -7,13 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-Category.destroy_all
-Course.destroy_all
-CourseCategories.destroy_all
-Classroom.destroy_all
-Session.destroy_all
-Usersession.destroy_all
-User.destroy_all
+# Category.destroy_all
+# Course.destroy_all
+# CourseCategories.destroy_all
+# Classroom.destroy_all
+# Session.destroy_all
+# Usersession.destroy_all
+# User.destroy_all
 
 # Creation des utilisateurs
 5.times do
@@ -59,40 +59,41 @@ Category.create!(:name => "PHP")
 Category.create!(:name => "Management")
 
 # Création des cours
-Course.create(title: "Hello world !", description: Faker::Lorem.paragraph_by_chars, teacher_id: "1")
+Course.create(title: "Cours 1", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.sample.id)
+Course.create(title: "Cours 2", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.sample.id)
+Course.create(title: "Cours 3", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.sample.id)
+Course.create(title: "Cours 4", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.sample.id)
 
 # Création des catégories
-CourseCategories.create!(:name => "Javascript")
-CourseCategories.create!(:name => "PHP")
-CourseCategories.create!(:name => "Management")
+CourseCategory.create(course_id: Course.all.sample.id, category_id: Category.all.sample.id)
+CourseCategory.create(course_id: Course.all.sample.id, category_id: Category.all.sample.id)
+CourseCategory.create(course_id: Course.all.sample.id, category_id: Category.all.sample.id)
+CourseCategory.create(course_id: Course.all.sample.id, category_id: Category.all.sample.id)
 
+# Création des Classroom
+Classroom.create(name: "ClassRoom 1")
+Classroom.create(name: "ClassRoom 2")
+Classroom.create(name: "ClassRoom 3")
+Classroom.create(name: "ClassRoom 4")
 
+# Creation des sessions
+5.times do
 
-# Creation des annonces
-1.times do
+  Session.create! do |session|
+    session.course_id = Course.all.sample.id
+    session.begin_date = Time.now
+    session.availables_seats = rand(10...30)
+    session.course_id = Course.all.sample.id
+    session.classroom_id = Classroom.all.sample.id
+  end
+end
 
-  Advert.create! do |advert|
-    advert.user_id = User.all.sample.id
-    advert.url = "clicspot.com"
-    advert.title = Faker::Lorem::sentence
-    advert.strenght = Faker::Lorem::paragraph_by_chars(chars = 250)
-    advert.opportunity = Faker::Lorem::paragraph_by_chars(chars = 250)
-    advert.traffic = Faker::Lorem::paragraph_by_chars(chars = 250)
-    advert.skill = Faker::Lorem::paragraph_by_chars(chars = 250)
-    advert.description = Faker::Lorem::paragraph_by_chars(chars = 250)
-    advert.price = rand(100...1000)
-    advert.created_date = Date.today - rand(100...2000).day
-    advert.revenue = rand(100...1000)
-    advert.expense = rand(100...10000)
-    advert.turnover = rand(100...10000)
-    advert.visit = rand(10...2000)
-    advert.time_work = ["0-10","10-20","20-30","30-40","40+"].sample
-    advert.salaries = rand(1...10)
-    advert.status = 1
-    advert.step = "active"
-    advert.monetization_id = Monetization.all.sample.id
-    advert.category_id = Category.all.sample.id
-    advert.technology_id = Technology.all.sample.id
-    advert.industry_id = Industry.all.sample.id
+# Creation des User Sessions
+5.times do
+
+  Usersession.create! do |usersession|
+    usersession.note = rand(1...20)
+    usersession.student_id = User.is_student.sample.id
+    usersession.session_id = Session.all.sample.id
   end
 end
