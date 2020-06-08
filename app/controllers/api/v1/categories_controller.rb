@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class Api::V1::CategoriesController < Api::ApplicationController
   before_action :set_category, only: [:show, :update, :destroy]
 
   # GET /categories
@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      render json: @category, status: :created, location: @category
+      render json: @category, status: :created, location: api_v1_categories_url(@category)
     else
       render json: @category.errors, status: :unprocessable_entity
     end
