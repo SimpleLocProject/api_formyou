@@ -1,4 +1,5 @@
-class SessionsController < ApplicationController
+class Api::V1::SessionsController < Api::ApplicationController
+
   before_action :set_session, only: [:show, :update, :destroy]
 
   # GET /sessions

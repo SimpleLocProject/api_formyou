@@ -1,4 +1,5 @@
-class CoursesController < ApplicationController
+class Api::V1::CoursesController < Api::ApplicationController
+
   before_action :set_course, only: [:show, :update, :destroy]
 
   # GET /courses

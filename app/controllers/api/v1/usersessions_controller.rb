@@ -1,4 +1,5 @@
-class UsersessionsController < ApplicationController
+class Api::V1::UsersessionsController < Api::ApplicationController
+
   before_action :set_usersession, only: [:show, :update, :destroy]
 
   # GET /usersessions

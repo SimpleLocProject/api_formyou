@@ -9,7 +9,7 @@ class User < ApplicationRecord
   scope :is_admin, -> { where(is_admin: 1) } # User.is_admin -> Renvoit la liste des profs
   scope :is_student, -> { where(can_access: 1) } # User.can_access -> Renvoit la liste des students
 
-
+  #TODO Activer quand on poussera en prod pour recevoir un email quand on créé un User
   # after_create :welcome_send
 
   def welcome_send
