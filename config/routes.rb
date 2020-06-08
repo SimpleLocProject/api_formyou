@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :courses
+  resources :usersessions
+  resources :sessions
   devise_for :users, defaults: { format: :json },
   path: '',
   path_names: {
