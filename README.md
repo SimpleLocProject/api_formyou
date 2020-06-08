@@ -9,9 +9,9 @@ Starter for api project with :
 
 ## Installation
 
-`git clone git@github.com:luca-montaigut/api_myloc.git`
+`git clone git@github.com:luca-montaigut/api_formyou.git`
 
-`cd api_myloc`
+`cd api_formyou`
 
 `bundle install`
 
