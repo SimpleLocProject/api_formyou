@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(version: 2020_06_08_113611) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "first_name"
     t.string "last_name"
-    t.boolean "can_access"
-    t.boolean "is_admin"
-    t.boolean "is_teacher"
+    t.boolean "can_access", default: false
+    t.boolean "is_admin", default: false
+    t.boolean "is_teacher", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
