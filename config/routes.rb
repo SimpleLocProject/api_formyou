@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/no_access', to: 'no_access#index'
   devise_for :users, defaults: { format: :json },
   path: '',
   path_names: {
