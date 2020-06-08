@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 2020_06_08_113611) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", default: ""
+    t.string "last_name", default: ""
     t.boolean "can_access", default: false
     t.boolean "is_admin", default: false
     t.boolean "is_teacher", default: false
