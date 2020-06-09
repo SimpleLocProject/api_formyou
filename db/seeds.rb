@@ -88,7 +88,7 @@ Classroom.create(name: "ClassRoom 4")
 end
 
 # Creation des User Sessions
-5.times do
+2.times do
 
   Usersession.create! do |usersession|
     usersession.note = rand(1...20)
@@ -98,3 +98,4 @@ end
 end
 
 AdminUser.create!(email: 'admin@myloc.com', password: '123456', password_confirmation: '123456')
+

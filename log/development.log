@@ -1466,3 +1466,634 @@ Processing by Api::V1::CoursesController#index as JSON
 Completed 200 OK in 37ms (Views: 0.2ms | ActiveRecord: 8.0ms | Allocations: 16366)
 
 
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (111.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "api_myloc_development"[0m
+  [1m[35m (128.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "api_myloc_test"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "api_myloc_development"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "api_myloc_test"[0m
+  [1m[35m (319.1ms)[0m  [1m[35mCREATE DATABASE "api_myloc_development" ENCODING = 'unicode'[0m
+  [1m[35m (328.5ms)[0m  [1m[35mCREATE DATABASE "api_myloc_test" ENCODING = 'unicode'[0m
+  [1m[35m (16.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (20.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2684050000193056425)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20200605122442)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.3ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200605122442"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJwtBlacklists (20200605122931)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (15.1ms)[0m  [1m[35mCREATE TABLE "jwt_blacklists" ("id" bigserial primary key, "jti" character varying, "exp" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (7.4ms)[0m  [1m[35mCREATE  INDEX  "index_jwt_blacklists_on_jti" ON "jwt_blacklists"  ("jti")[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200605122931"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddColumnsToUser (20200608113611)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "first_name" character varying DEFAULT ''[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "last_name" character varying DEFAULT ''[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "can_access" boolean DEFAULT FALSE[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "is_admin" boolean DEFAULT FALSE[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "is_teacher" boolean DEFAULT FALSE[0m
+  [1m[36mprimary::SchemaMigration Create (3.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608113611"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCategories (20200608115055)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.7ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608115055"]]
+  [1m[35m (6.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCourses (20200608124304)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE TABLE "courses" ("id" bigserial primary key, "title" character varying, "description" text, "teacher_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE  INDEX  "index_courses_on_teacher_id" ON "courses"  ("teacher_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608124304"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CourseCategories (20200608131106)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (13.1ms)[0m  [1m[35mCREATE TABLE "course_categories" ("id" bigserial primary key, "course_id" bigint, "category_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (6.5ms)[0m  [1m[35mCREATE  INDEX  "index_course_categories_on_course_id" ON "course_categories"  ("course_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_course_categories_on_category_id" ON "course_categories"  ("category_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608131106"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateClassrooms (20200608140335)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (20.4ms)[0m  [1m[35mCREATE TABLE "classrooms" ("id" bigserial primary key, "name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608140335"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSessions (20200608202812)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "sessions" ("id" bigserial primary key, "begin_date" date, "availables_seats" integer DEFAULT 20, "course_id" bigint NOT NULL, "classroom_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_402b003a3d"
+FOREIGN KEY ("course_id")
+  REFERENCES "courses" ("id")
+, CONSTRAINT "fk_rails_d73d2148c0"
+FOREIGN KEY ("classroom_id")
+  REFERENCES "classrooms" ("id")
+)[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE  INDEX  "index_sessions_on_course_id" ON "sessions"  ("course_id")[0m
+  [1m[35m (12.4ms)[0m  [1m[35mCREATE  INDEX  "index_sessions_on_classroom_id" ON "sessions"  ("classroom_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608202812"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsersessions (20200608203101)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "usersessions" ("id" bigserial primary key, "note" integer, "student_id" bigint, "session_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_usersessions_on_student_id" ON "usersessions"  ("student_id")[0m
+  [1m[35m (12.1ms)[0m  [1m[35mCREATE  INDEX  "index_usersessions_on_session_id" ON "usersessions"  ("session_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608203101"]]
+  [1m[35m (6.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseCreateAdminUsers (20200609141658)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "admin_users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_admin_users_on_email" ON "admin_users"  ("email")[0m
+  [1m[35m (7.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_admin_users_on_reset_password_token" ON "admin_users"  ("reset_password_token")[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200609141658"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateActiveAdminComments (20200609141700)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.8ms)[0m  [1m[35mCREATE TABLE "active_admin_comments" ("id" bigserial primary key, "namespace" character varying, "body" text, "resource_type" character varying, "resource_id" bigint, "author_type" character varying, "author_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (7.2ms)[0m  [1m[35mCREATE  INDEX  "index_active_admin_comments_on_resource_type_and_resource_id" ON "active_admin_comments"  ("resource_type", "resource_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_active_admin_comments_on_author_type_and_author_id" ON "active_admin_comments"  ("author_type", "author_id")[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE  INDEX  "index_active_admin_comments_on_namespace" ON "active_admin_comments"  ("namespace")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200609141700"]]
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-06-09 16:13:19.128670"], ["updated_at", "2020-06-09 16:13:19.128670"]]
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(2684050000193056425)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "lynn@gerhold-hammes.net"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "lynn@gerhold-hammes.net"], ["encrypted_password", "$2a$11$adniSWWJJD.3te5dS5wz9.ISdZsXVZR3sTxcCiPB7bl1qVPK80xKK"], ["created_at", "2020-06-09 16:13:19.370864"], ["updated_at", "2020-06-09 16:13:19.370864"], ["first_name", "Kirby"], ["last_name", "Doyle"], ["can_access", true]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "chadwick.grady@blick.name"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "chadwick.grady@blick.name"], ["encrypted_password", "$2a$11$JNXQqF/zbiZk23Ho/NxpYeyZURzeO7YoVmggrGIcpz9TwojLT9D2y"], ["created_at", "2020-06-09 16:13:19.489154"], ["updated_at", "2020-06-09 16:13:19.489154"], ["first_name", "Danelle"], ["last_name", "Pfannerstill"], ["can_access", true]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "edgardo@parker.io"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "edgardo@parker.io"], ["encrypted_password", "$2a$11$jeBRyZ12oHaSb7yVHu1W8uBtjt8H56vjMLS50XZxxpW59aO8otFdq"], ["created_at", "2020-06-09 16:13:19.605614"], ["updated_at", "2020-06-09 16:13:19.605614"], ["first_name", "Peter"], ["last_name", "Dooley"], ["can_access", true]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "numbers.blanda@metz.info"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "numbers.blanda@metz.info"], ["encrypted_password", "$2a$11$OApUQiqKskvKmSYFtr8NQuTSQbfpC9tvhfMI9.KCiRcm7IjGVLeJS"], ["created_at", "2020-06-09 16:13:19.723673"], ["updated_at", "2020-06-09 16:13:19.723673"], ["first_name", "Annabel"], ["last_name", "Weissnat"], ["can_access", true]]
+  [1m[35m (2.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "ignacio_nitzsche@hartmann-king.name"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "ignacio_nitzsche@hartmann-king.name"], ["encrypted_password", "$2a$11$kQLGzpPV1uSpTGD9x.qhEOtVoNTdDRpXU0gKIKCWi7kAm7u17eJDi"], ["created_at", "2020-06-09 16:13:19.840388"], ["updated_at", "2020-06-09 16:13:19.840388"], ["first_name", "Sharonda"], ["last_name", "Schneider"], ["can_access", true]]
+  [1m[35m (2.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "leroy@kerluke.biz"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "leroy@kerluke.biz"], ["encrypted_password", "$2a$11$ehzblwR2T1HQ1cMmGSiaN.3DzkPzfnZnCjBD76pjBNXIQM/YXRnxy"], ["created_at", "2020-06-09 16:13:19.957498"], ["updated_at", "2020-06-09 16:13:19.957498"], ["first_name", "Giovanni"], ["last_name", "Goyette"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "johnna@gutmann.co"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "johnna@gutmann.co"], ["encrypted_password", "$2a$11$ut6/Ajsf8xXgCo9gxio2Q.xOzj10vVzIXCyNEuolu7dHW.nffv2Fa"], ["created_at", "2020-06-09 16:13:20.074396"], ["updated_at", "2020-06-09 16:13:20.074396"], ["first_name", "Cletus"], ["last_name", "Rutherford"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (2.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "noble_legros@connelly-rogahn.org"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "noble_legros@connelly-rogahn.org"], ["encrypted_password", "$2a$11$vDeP5EqdRw8H2sXWrHq1kupLHo4nVolyzZvgL9ilW0OJeSWRjiSny"], ["created_at", "2020-06-09 16:13:20.190994"], ["updated_at", "2020-06-09 16:13:20.190994"], ["first_name", "Norris"], ["last_name", "Schroeder"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "lamont@mueller.co"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "lamont@mueller.co"], ["encrypted_password", "$2a$11$98.0qGdWBbVOsFqnB7hmRuTW9N8FcAdFVo6wSZO3Ne8MFrq08lQC2"], ["created_at", "2020-06-09 16:13:20.307211"], ["updated_at", "2020-06-09 16:13:20.307211"], ["first_name", "Yesenia"], ["last_name", "Pouros"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "patrina.oconner@gottlieb.biz"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "patrina.oconner@gottlieb.biz"], ["encrypted_password", "$2a$11$o7t03GMRO8yiQK2HRBTKUeLtq3tNa507DDH.jNyEjPMMJl0EzI..G"], ["created_at", "2020-06-09 16:13:20.422993"], ["updated_at", "2020-06-09 16:13:20.422993"], ["first_name", "Nigel"], ["last_name", "Ward"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "kim@kerluke.co"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_admin") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "kim@kerluke.co"], ["encrypted_password", "$2a$11$VnY2QeW7ra1Eo9m4WhP2YebABSYJbLz3hZUcbfrAd1uZ0Jck.uLiS"], ["created_at", "2020-06-09 16:13:20.539686"], ["updated_at", "2020-06-09 16:13:20.539686"], ["first_name", "Darren"], ["last_name", "Fay"], ["can_access", true], ["is_admin", true]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "danny@koch.name"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_admin") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "danny@koch.name"], ["encrypted_password", "$2a$11$jT9QZQuPUnrV/p..jWmbNuzS4Hvxx8a2EC3pAUGBGgtQUq6fSNlje"], ["created_at", "2020-06-09 16:13:20.655917"], ["updated_at", "2020-06-09 16:13:20.655917"], ["first_name", "Alva"], ["last_name", "Marquardt"], ["can_access", true], ["is_admin", true]]
+  [1m[35m (2.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Javascript"], ["created_at", "2020-06-09 16:13:20.666885"], ["updated_at", "2020-06-09 16:13:20.666885"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "PHP"], ["created_at", "2020-06-09 16:13:20.670647"], ["updated_at", "2020-06-09 16:13:20.670647"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Management"], ["created_at", "2020-06-09 16:13:20.674377"], ["updated_at", "2020-06-09 16:13:20.674377"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."is_teacher" = $1[0m  [["is_teacher", true]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Create (0.4ms)[0m  [1m[32mINSERT INTO "courses" ("title", "description", "teacher_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Cours 1"], ["description", "Sit quis consequuntur. Molestiae aut qui. Quos omnis quia. Qui deserunt assumenda. Dolores unde ducimus. Aperiam eaque sed. Quidem aut iste. Ducimus qui aut. Assumenda velit sequi. Corporis reprehenderit et. Impedit est officiis. Ea dolores temporibus. Ac."], ["teacher_id", 8], ["created_at", "2020-06-09 16:13:20.689111"], ["updated_at", "2020-06-09 16:13:20.689111"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."is_teacher" = $1[0m  [["is_teacher", true]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Create (0.2ms)[0m  [1m[32mINSERT INTO "courses" ("title", "description", "teacher_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Cours 2"], ["description", "Consectetur nam ipsum. Velit ut cum. Est voluptatem voluptatem. Blanditiis minus sed. Sed possimus explicabo. Voluptatem nemo ut. Qui omnis totam. Quis tempore sed. Perferendis molestiae qui. Quisquam sed pariatur. Laboriosam ea nemo. Saepe neque perferen."], ["teacher_id", 8], ["created_at", "2020-06-09 16:13:20.694834"], ["updated_at", "2020-06-09 16:13:20.694834"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."is_teacher" = $1[0m  [["is_teacher", true]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Create (0.3ms)[0m  [1m[32mINSERT INTO "courses" ("title", "description", "teacher_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Cours 3"], ["description", "Sed maiores aperiam. Inventore libero incidunt. Rem molestiae unde. Quasi consequuntur quaerat. Reiciendis vitae minus. Dolores nihil omnis. Alias ipsa repellat. Et expedita et. Voluptas qui in. Architecto optio nulla. Minus sint quam. Ex qui cumque. Est ."], ["teacher_id", 8], ["created_at", "2020-06-09 16:13:20.700505"], ["updated_at", "2020-06-09 16:13:20.700505"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."is_teacher" = $1[0m  [["is_teacher", true]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Create (0.2ms)[0m  [1m[32mINSERT INTO "courses" ("title", "description", "teacher_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Cours 4"], ["description", "Impedit reiciendis quaerat. Et debitis unde. Quia et voluptatem. Deserunt ipsum odit. Rerum molestiae dolorem. Soluta eum repellat. Labore voluptatum temporibus. Vero hic sit. Libero molestias et. Necessitatibus est enim. Voluptas aut repudiandae. Nulla m."], ["teacher_id", 10], ["created_at", "2020-06-09 16:13:20.705782"], ["updated_at", "2020-06-09 16:13:20.705782"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mClassroom Create (0.4ms)[0m  [1m[32mINSERT INTO "classrooms" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "ClassRoom 1"], ["created_at", "2020-06-09 16:13:20.743343"], ["updated_at", "2020-06-09 16:13:20.743343"]]
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mClassroom Create (0.2ms)[0m  [1m[32mINSERT INTO "classrooms" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "ClassRoom 2"], ["created_at", "2020-06-09 16:13:20.752495"], ["updated_at", "2020-06-09 16:13:20.752495"]]
+  [1m[35m (5.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mClassroom Create (0.7ms)[0m  [1m[32mINSERT INTO "classrooms" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "ClassRoom 3"], ["created_at", "2020-06-09 16:13:20.763054"], ["updated_at", "2020-06-09 16:13:20.763054"]]
+  [1m[35m (6.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mClassroom Create (0.8ms)[0m  [1m[32mINSERT INTO "classrooms" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "ClassRoom 4"], ["created_at", "2020-06-09 16:13:20.779594"], ["updated_at", "2020-06-09 16:13:20.779594"]]
+  [1m[35m (6.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.4ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.3ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mSession Create (0.8ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 2], ["classroom_id", 3], ["created_at", "2020-06-09 16:13:20.834908"], ["updated_at", "2020-06-09 16:13:20.834908"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mSession Create (0.4ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 4], ["classroom_id", 4], ["created_at", "2020-06-09 16:13:20.844896"], ["updated_at", "2020-06-09 16:13:20.844896"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mSession Create (0.4ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 2], ["classroom_id", 4], ["created_at", "2020-06-09 16:13:20.853313"], ["updated_at", "2020-06-09 16:13:20.853313"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mSession Create (0.4ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 4], ["classroom_id", 3], ["created_at", "2020-06-09 16:13:20.867587"], ["updated_at", "2020-06-09 16:13:20.867587"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mSession Create (0.3ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 2], ["classroom_id", 4], ["created_at", "2020-06-09 16:13:20.876846"], ["updated_at", "2020-06-09 16:13:20.876846"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."can_access" = $1[0m  [["can_access", true]]
+  [1m[36mSession Load (0.3ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:17:in `reserve_a_seat'
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mClassroom Load (0.1ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mSession Update (0.2ms)[0m  [1m[33mUPDATE "sessions" SET "availables_seats" = $1, "updated_at" = $2 WHERE "sessions"."id" = $3[0m  [["availables_seats", 19], ["updated_at", "2020-06-09 16:13:20.897277"], ["id", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Load (0.3ms)[0m  [1m[34mSELECT "usersessions".* FROM "usersessions" WHERE "usersessions"."student_id" = $1[0m  [["student_id", 12]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Create (0.3ms)[0m  [1m[32mINSERT INTO "usersessions" ("note", "student_id", "session_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["note", 10], ["student_id", 12], ["session_id", 1], ["created_at", "2020-06-09 16:13:20.898497"], ["updated_at", "2020-06-09 16:13:20.898497"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."can_access" = $1[0m  [["can_access", true]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:17:in `reserve_a_seat'
+  [1m[36mCourse Load (0.1ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mClassroom Load (0.1ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mSession Update (0.2ms)[0m  [1m[33mUPDATE "sessions" SET "availables_seats" = $1, "updated_at" = $2 WHERE "sessions"."id" = $3[0m  [["availables_seats", 19], ["updated_at", "2020-06-09 16:13:20.911467"], ["id", 2]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Load (0.2ms)[0m  [1m[34mSELECT "usersessions".* FROM "usersessions" WHERE "usersessions"."student_id" = $1[0m  [["student_id", 3]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Create (0.2ms)[0m  [1m[32mINSERT INTO "usersessions" ("note", "student_id", "session_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["note", 13], ["student_id", 3], ["session_id", 2], ["created_at", "2020-06-09 16:13:20.912556"], ["updated_at", "2020-06-09 16:13:20.912556"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."can_access" = $1[0m  [["can_access", true]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mSession Load (0.1ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSession Load (0.1ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:17:in `reserve_a_seat'
+  [1m[36mCourse Load (0.1ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mClassroom Load (0.1ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mSession Update (0.2ms)[0m  [1m[33mUPDATE "sessions" SET "availables_seats" = $1, "updated_at" = $2 WHERE "sessions"."id" = $3[0m  [["availables_seats", 18], ["updated_at", "2020-06-09 16:13:20.924434"], ["id", 2]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Load (0.2ms)[0m  [1m[34mSELECT "usersessions".* FROM "usersessions" WHERE "usersessions"."student_id" = $1[0m  [["student_id", 5]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Create (0.2ms)[0m  [1m[32mINSERT INTO "usersessions" ("note", "student_id", "session_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["note", 16], ["student_id", 5], ["session_id", 2], ["created_at", "2020-06-09 16:13:20.925521"], ["updated_at", "2020-06-09 16:13:20.925521"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."can_access" = $1[0m  [["can_access", true]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSession Load (0.1ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:17:in `reserve_a_seat'
+  [1m[36mCourse Load (0.1ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mClassroom Load (0.1ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mSession Update (0.2ms)[0m  [1m[33mUPDATE "sessions" SET "availables_seats" = $1, "updated_at" = $2 WHERE "sessions"."id" = $3[0m  [["availables_seats", 18], ["updated_at", "2020-06-09 16:13:20.937602"], ["id", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Load (0.2ms)[0m  [1m[34mSELECT "usersessions".* FROM "usersessions" WHERE "usersessions"."student_id" = $1[0m  [["student_id", 3]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mSession Load (0.1ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:10:in `block in one_at_once'
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (119.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "api_myloc_development"[0m
+  [1m[35m (117.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "api_myloc_test"[0m
+  [1m[35m (329.1ms)[0m  [1m[35mCREATE DATABASE "api_myloc_development" ENCODING = 'unicode'[0m
+  [1m[35m (318.0ms)[0m  [1m[35mCREATE DATABASE "api_myloc_test" ENCODING = 'unicode'[0m
+  [1m[35m (16.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (20.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2684050000193056425)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20200605122442)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (13.3ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (7.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[36mprimary::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200605122442"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJwtBlacklists (20200605122931)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.1ms)[0m  [1m[35mCREATE TABLE "jwt_blacklists" ("id" bigserial primary key, "jti" character varying, "exp" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (8.6ms)[0m  [1m[35mCREATE  INDEX  "index_jwt_blacklists_on_jti" ON "jwt_blacklists"  ("jti")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200605122931"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddColumnsToUser (20200608113611)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "first_name" character varying DEFAULT ''[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "last_name" character varying DEFAULT ''[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "can_access" boolean DEFAULT FALSE[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "is_admin" boolean DEFAULT FALSE[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "is_teacher" boolean DEFAULT FALSE[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608113611"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCategories (20200608115055)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (13.9ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608115055"]]
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCourses (20200608124304)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE TABLE "courses" ("id" bigserial primary key, "title" character varying, "description" text, "teacher_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_courses_on_teacher_id" ON "courses"  ("teacher_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608124304"]]
+  [1m[35m (6.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CourseCategories (20200608131106)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.1ms)[0m  [1m[35mCREATE TABLE "course_categories" ("id" bigserial primary key, "course_id" bigint, "category_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE  INDEX  "index_course_categories_on_course_id" ON "course_categories"  ("course_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_course_categories_on_category_id" ON "course_categories"  ("category_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608131106"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateClassrooms (20200608140335)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (20.3ms)[0m  [1m[35mCREATE TABLE "classrooms" ("id" bigserial primary key, "name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608140335"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSessions (20200608202812)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "sessions" ("id" bigserial primary key, "begin_date" date, "availables_seats" integer DEFAULT 20, "course_id" bigint NOT NULL, "classroom_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_402b003a3d"
+FOREIGN KEY ("course_id")
+  REFERENCES "courses" ("id")
+, CONSTRAINT "fk_rails_d73d2148c0"
+FOREIGN KEY ("classroom_id")
+  REFERENCES "classrooms" ("id")
+)[0m
+  [1m[35m (6.5ms)[0m  [1m[35mCREATE  INDEX  "index_sessions_on_course_id" ON "sessions"  ("course_id")[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE  INDEX  "index_sessions_on_classroom_id" ON "sessions"  ("classroom_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608202812"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsersessions (20200608203101)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "usersessions" ("id" bigserial primary key, "note" integer, "student_id" bigint, "session_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_usersessions_on_student_id" ON "usersessions"  ("student_id")[0m
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE  INDEX  "index_usersessions_on_session_id" ON "usersessions"  ("session_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200608203101"]]
+  [1m[35m (6.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseCreateAdminUsers (20200609141658)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.1ms)[0m  [1m[35mCREATE TABLE "admin_users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_admin_users_on_email" ON "admin_users"  ("email")[0m
+  [1m[35m (7.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_admin_users_on_reset_password_token" ON "admin_users"  ("reset_password_token")[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200609141658"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateActiveAdminComments (20200609141700)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "active_admin_comments" ("id" bigserial primary key, "namespace" character varying, "body" text, "resource_type" character varying, "resource_id" bigint, "author_type" character varying, "author_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE  INDEX  "index_active_admin_comments_on_resource_type_and_resource_id" ON "active_admin_comments"  ("resource_type", "resource_id")[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE  INDEX  "index_active_admin_comments_on_author_type_and_author_id" ON "active_admin_comments"  ("author_type", "author_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_active_admin_comments_on_namespace" ON "active_admin_comments"  ("namespace")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200609141700"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-06-09 16:13:31.275439"], ["updated_at", "2020-06-09 16:13:31.275439"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(2684050000193056425)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "laurine@green.net"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "laurine@green.net"], ["encrypted_password", "$2a$11$Z6BQ7xJVmoW2AIsBLGnXDusZtJyN1SZz2rTWn1.NbGkzJD0Scf.Pq"], ["created_at", "2020-06-09 16:13:31.513223"], ["updated_at", "2020-06-09 16:13:31.513223"], ["first_name", "Na"], ["last_name", "Schneider"], ["can_access", true]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "yuette@olson-ruecker.biz"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "yuette@olson-ruecker.biz"], ["encrypted_password", "$2a$11$RGjVcqKGZl9UWIIxHfGToOsRYEs1IcJ1wMTlj2Dbz2OCL7tQPTfpC"], ["created_at", "2020-06-09 16:13:31.629988"], ["updated_at", "2020-06-09 16:13:31.629988"], ["first_name", "Usha"], ["last_name", "Koss"], ["can_access", true]]
+  [1m[35m (2.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "brett_hirthe@boehm-doyle.co"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "brett_hirthe@boehm-doyle.co"], ["encrypted_password", "$2a$11$4kDfteuoQFbFZKHbDHbyDuVxrxuuaSq7InlpZAhtrk746gQhQqLFS"], ["created_at", "2020-06-09 16:13:31.748539"], ["updated_at", "2020-06-09 16:13:31.748539"], ["first_name", "Hung"], ["last_name", "Romaguera"], ["can_access", true]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "sharlene@halvorson.org"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "sharlene@halvorson.org"], ["encrypted_password", "$2a$11$a0u.RrCJMzuRTTxl4f4d/OokMPXAC9l7V7f.anT4JaR6pTiXPJbVe"], ["created_at", "2020-06-09 16:13:31.865370"], ["updated_at", "2020-06-09 16:13:31.865370"], ["first_name", "Sheldon"], ["last_name", "Dietrich"], ["can_access", true]]
+  [1m[35m (2.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "giuseppe@considine.net"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "giuseppe@considine.net"], ["encrypted_password", "$2a$11$ir4sghsZlt2o85UmdHddIu7Z8uKTEsy2B013DbsaYnlQqr/PXxuvu"], ["created_at", "2020-06-09 16:13:31.982114"], ["updated_at", "2020-06-09 16:13:31.982114"], ["first_name", "Jennie"], ["last_name", "Howe"], ["can_access", true]]
+  [1m[35m (2.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "rebekah@lehner.info"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "rebekah@lehner.info"], ["encrypted_password", "$2a$11$TrnOK78wcliFvjLBAdpuvef9nkkXy0EN0B/peYdkkREatxWDj3vKm"], ["created_at", "2020-06-09 16:13:32.099017"], ["updated_at", "2020-06-09 16:13:32.099017"], ["first_name", "Jewel"], ["last_name", "Smith"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "yvette.jacobi@runte.org"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "yvette.jacobi@runte.org"], ["encrypted_password", "$2a$11$5MsB/6G0B8FMb/amJIlUs.h6eQMFvOThCYGF6nsOyj6GzLKq2mAha"], ["created_at", "2020-06-09 16:13:32.216087"], ["updated_at", "2020-06-09 16:13:32.216087"], ["first_name", "Tanja"], ["last_name", "Dickinson"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (8.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "suzy_anderson@witting.io"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "suzy_anderson@witting.io"], ["encrypted_password", "$2a$11$OkJtKwRm6TPvMfJJeeKcEuPQe0JZnTZ.rHD9nIzIKya/PTRsbGy1y"], ["created_at", "2020-06-09 16:13:32.342034"], ["updated_at", "2020-06-09 16:13:32.342034"], ["first_name", "Ronnie"], ["last_name", "Runolfsson"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (20.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "kennith@fisher.org"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "kennith@fisher.org"], ["encrypted_password", "$2a$11$TXtXA4l/cyWzAdc5mQHQc.TEbBYoI2UXWJEzJg.nHOs7LPcjwEQsa"], ["created_at", "2020-06-09 16:13:32.477218"], ["updated_at", "2020-06-09 16:13:32.477218"], ["first_name", "Bud"], ["last_name", "Reilly"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (13.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "rob_herzog@gerlach.info"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_teacher") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "rob_herzog@gerlach.info"], ["encrypted_password", "$2a$11$VaHObm7f8M700onjpRHT6eEtdiRStE/PraYxYoEU3MOiLMh4ACJvK"], ["created_at", "2020-06-09 16:13:32.604226"], ["updated_at", "2020-06-09 16:13:32.604226"], ["first_name", "Alina"], ["last_name", "Olson"], ["can_access", true], ["is_teacher", true]]
+  [1m[35m (16.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "nathalie@mccullough.io"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_admin") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "nathalie@mccullough.io"], ["encrypted_password", "$2a$11$9vN4F8QoEqXloCfcVZtCeeVUA3iL3CNAmbjATr/JzSnNftu7ZNEeO"], ["created_at", "2020-06-09 16:13:32.736601"], ["updated_at", "2020-06-09 16:13:32.736601"], ["first_name", "Katheleen"], ["last_name", "Beer"], ["can_access", true], ["is_admin", true]]
+  [1m[35m (10.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "cassidy@cronin.biz"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "first_name", "last_name", "can_access", "is_admin") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "cassidy@cronin.biz"], ["encrypted_password", "$2a$11$cneg2s4E9ndm7l2woi54yeEsoSjdbSKLjE/ahdnVDCOBby.pD7TMm"], ["created_at", "2020-06-09 16:13:32.862238"], ["updated_at", "2020-06-09 16:13:32.862238"], ["first_name", "Marcelino"], ["last_name", "Franecki"], ["can_access", true], ["is_admin", true]]
+  [1m[35m (17.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Javascript"], ["created_at", "2020-06-09 16:13:32.887795"], ["updated_at", "2020-06-09 16:13:32.887795"]]
+  [1m[35m (11.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.8ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "PHP"], ["created_at", "2020-06-09 16:13:32.904859"], ["updated_at", "2020-06-09 16:13:32.904859"]]
+  [1m[35m (5.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.7ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Management"], ["created_at", "2020-06-09 16:13:32.921491"], ["updated_at", "2020-06-09 16:13:32.921491"]]
+  [1m[35m (13.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."is_teacher" = $1[0m  [["is_teacher", true]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Create (0.6ms)[0m  [1m[32mINSERT INTO "courses" ("title", "description", "teacher_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Cours 1"], ["description", "Temporibus non excepturi. Quibusdam praesentium esse. Officia repellat exercitationem. Non dolor doloribus. Laboriosam quidem veniam. Dolorum laborum id. Eum reiciendis aut. Quasi temporibus omnis. Consectetur voluptatem ea. Corporis quia atque. Incidunt ."], ["teacher_id", 9], ["created_at", "2020-06-09 16:13:32.976817"], ["updated_at", "2020-06-09 16:13:32.976817"]]
+  [1m[35m (266.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."is_teacher" = $1[0m  [["is_teacher", true]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Create (0.8ms)[0m  [1m[32mINSERT INTO "courses" ("title", "description", "teacher_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Cours 2"], ["description", "Ut quaerat quos. Distinctio dolorem explicabo. Quam est doloremque. Omnis ratione placeat. Voluptate perspiciatis fuga. Quo voluptatem saepe. Sed delectus porro. Adipisci aliquid modi. Unde et sunt. Et sit et. Facere ratione hic. Non suscipit et. Id repel."], ["teacher_id", 10], ["created_at", "2020-06-09 16:13:33.257490"], ["updated_at", "2020-06-09 16:13:33.257490"]]
+  [1m[35m (16.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."is_teacher" = $1[0m  [["is_teacher", true]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Create (0.3ms)[0m  [1m[32mINSERT INTO "courses" ("title", "description", "teacher_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Cours 3"], ["description", "Et sapiente esse. Ad porro deleniti. Velit tempore nesciunt. Consequatur nemo deserunt. Ut placeat nam. Autem qui perferendis. Error aut consequatur. Nostrum facilis omnis. Beatae laborum odit. Eius fugit molestiae. Nemo corporis autem. Aut architecto sap."], ["teacher_id", 6], ["created_at", "2020-06-09 16:13:33.292642"], ["updated_at", "2020-06-09 16:13:33.292642"]]
+  [1m[35m (11.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."is_teacher" = $1[0m  [["is_teacher", true]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Create (0.3ms)[0m  [1m[32mINSERT INTO "courses" ("title", "description", "teacher_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Cours 4"], ["description", "Omnis pariatur magni. Minus et blanditiis. Vel enim et. Earum et sapiente. Consequatur perferendis aut. Est nulla delectus. Expedita exercitationem est. Numquam ducimus culpa. Quo neque omnis. Velit omnis ea. Ullam est numquam. Soluta neque accusantium. D."], ["teacher_id", 8], ["created_at", "2020-06-09 16:13:33.310261"], ["updated_at", "2020-06-09 16:13:33.310261"]]
+  [1m[35m (12.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mClassroom Create (0.4ms)[0m  [1m[32mINSERT INTO "classrooms" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "ClassRoom 1"], ["created_at", "2020-06-09 16:13:33.364378"], ["updated_at", "2020-06-09 16:13:33.364378"]]
+  [1m[35m (14.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mClassroom Create (0.3ms)[0m  [1m[32mINSERT INTO "classrooms" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "ClassRoom 2"], ["created_at", "2020-06-09 16:13:33.382159"], ["updated_at", "2020-06-09 16:13:33.382159"]]
+  [1m[35m (10.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mClassroom Create (0.3ms)[0m  [1m[32mINSERT INTO "classrooms" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "ClassRoom 3"], ["created_at", "2020-06-09 16:13:33.395601"], ["updated_at", "2020-06-09 16:13:33.395601"]]
+  [1m[35m (11.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mClassroom Create (0.3ms)[0m  [1m[32mINSERT INTO "classrooms" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "ClassRoom 4"], ["created_at", "2020-06-09 16:13:33.410655"], ["updated_at", "2020-06-09 16:13:33.410655"]]
+  [1m[35m (12.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.4ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.4ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.4ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.3ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mSession Create (1.1ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 4], ["classroom_id", 4], ["created_at", "2020-06-09 16:13:33.456298"], ["updated_at", "2020-06-09 16:13:33.456298"]]
+  [1m[35m (11.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.4ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.4ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.3ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSession Create (0.6ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 1], ["classroom_id", 2], ["created_at", "2020-06-09 16:13:33.484229"], ["updated_at", "2020-06-09 16:13:33.484229"]]
+  [1m[35m (14.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.4ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.4ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.4ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.3ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSession Create (0.6ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 4], ["classroom_id", 2], ["created_at", "2020-06-09 16:13:33.521329"], ["updated_at", "2020-06-09 16:13:33.521329"]]
+  [1m[35m (13.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.3ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.3ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mSession Create (0.5ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 3], ["classroom_id", 3], ["created_at", "2020-06-09 16:13:33.547521"], ["updated_at", "2020-06-09 16:13:33.547521"]]
+  [1m[35m (12.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses"[0m
+  [1m[36mClassroom Load (0.3ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCourse Load (0.3ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mSession Create (0.5ms)[0m  [1m[32mINSERT INTO "sessions" ("begin_date", "course_id", "classroom_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["begin_date", "2020-06-09"], ["course_id", 3], ["classroom_id", 3], ["created_at", "2020-06-09 16:13:33.572923"], ["updated_at", "2020-06-09 16:13:33.572923"]]
+  [1m[35m (13.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."can_access" = $1[0m  [["can_access", true]]
+  [1m[36mSession Load (0.3ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mSession Load (0.3ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mSession Load (0.3ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mSession Load (0.3ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:17:in `reserve_a_seat'
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mClassroom Load (0.2ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mSession Update (0.3ms)[0m  [1m[33mUPDATE "sessions" SET "availables_seats" = $1, "updated_at" = $2 WHERE "sessions"."id" = $3[0m  [["availables_seats", 19], ["updated_at", "2020-06-09 16:13:33.616459"], ["id", 3]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Load (0.4ms)[0m  [1m[34mSELECT "usersessions".* FROM "usersessions" WHERE "usersessions"."student_id" = $1[0m  [["student_id", 3]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Create (0.5ms)[0m  [1m[32mINSERT INTO "usersessions" ("note", "student_id", "session_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["note", 8], ["student_id", 3], ["session_id", 3], ["created_at", "2020-06-09 16:13:33.618202"], ["updated_at", "2020-06-09 16:13:33.618202"]]
+  [1m[35m (9.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."can_access" = $1[0m  [["can_access", true]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:22:in `check_if_seats_availables'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSession Load (0.2ms)[0m  [1m[34mSELECT "sessions".* FROM "sessions" WHERE "sessions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:17:in `reserve_a_seat'
+  [1m[36mCourse Load (0.1ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mClassroom Load (0.1ms)[0m  [1m[34mSELECT "classrooms".* FROM "classrooms" WHERE "classrooms"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mSession Update (0.2ms)[0m  [1m[33mUPDATE "sessions" SET "availables_seats" = $1, "updated_at" = $2 WHERE "sessions"."id" = $3[0m  [["availables_seats", 19], ["updated_at", "2020-06-09 16:13:33.642518"], ["id", 1]]
+  ↳ app/models/usersession.rb:18:in `reserve_a_seat'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Load (0.2ms)[0m  [1m[34mSELECT "usersessions".* FROM "usersessions" WHERE "usersessions"."student_id" = $1[0m  [["student_id", 9]]
+  ↳ app/models/usersession.rb:9:in `one_at_once'
+  [1m[36mUsersession Create (0.2ms)[0m  [1m[32mINSERT INTO "usersessions" ("note", "student_id", "session_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["note", 19], ["student_id", 9], ["session_id", 1], ["created_at", "2020-06-09 16:13:33.643714"], ["updated_at", "2020-06-09 16:13:33.643714"]]
+  [1m[35m (11.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mAdminUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = $1 LIMIT $2[0m  [["email", "admin@myloc.com"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.4ms)[0m  [1m[32mINSERT INTO "admin_users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "admin@myloc.com"], ["encrypted_password", "$2a$11$Dumq4Wk/98Wfi..UIgihNeJcyJ1LpsNUyb0rLWFOc3plsUaxaH68u"], ["created_at", "2020-06-09 16:13:33.808443"], ["updated_at", "2020-06-09 16:13:33.808443"]]
+  [1m[35m (8.0ms)[0m  [1m[35mCOMMIT[0m
