@@ -96,3 +96,5 @@ end
     usersession.session_id = Session.all.sample.id
   end
 end
+
+AdminUser.create!(email: 'admin@myloc.com', password: '123456', password_confirmation: '123456')
