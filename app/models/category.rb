@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
     has_many :course_categories
-    validates :name, presence: true 
+    has_many :courses, :through => :course_categories, dependent: :destroy
+
+    validates :name, presence: true
 end
