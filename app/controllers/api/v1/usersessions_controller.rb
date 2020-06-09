@@ -51,6 +51,6 @@ class Api::V1::UsersessionsController < Api::ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def usersession_params
-      params.require(:usersession).permit(:note, :student_id, :session_id)
+      params.require(:usersession).permit(:note, :student_id, :session_id).merge(student_id: current_user.id)
     end
 end

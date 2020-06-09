@@ -82,7 +82,6 @@ Classroom.create(name: "ClassRoom 4")
   Session.create! do |session|
     session.course_id = Course.all.sample.id
     session.begin_date = Time.now
-    session.availables_seats = rand(10...30)
     session.course_id = Course.all.sample.id
     session.classroom_id = Classroom.all.sample.id
   end
