@@ -40,3 +40,8 @@ coverage
 
 log/*
 tmp/*
+.rakeTasks
+.ruby-version
+
+
+.generators
