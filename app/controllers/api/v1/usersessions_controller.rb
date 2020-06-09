@@ -18,9 +18,12 @@ class Api::V1::UsersessionsController < Api::ApplicationController
   # POST /usersessions
   def create
     @usersession = Usersession.new(usersession_params)
+    
 
     if @usersession.save
       render json: @usersession, status: :created, location: api_v1_usersessions_url(@usersession)
+      @session = Session.find(:session_id)
+      @session.availables_seats -= 1
     else
       render json: @usersession.errors, status: :unprocessable_entity
     end
