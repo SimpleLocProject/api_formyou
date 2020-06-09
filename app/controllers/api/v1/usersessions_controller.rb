@@ -1,6 +1,7 @@
 class Api::V1::UsersessionsController < Api::ApplicationController
 
   before_action :set_usersession, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /usersessions
   def index
@@ -19,7 +20,7 @@ class Api::V1::UsersessionsController < Api::ApplicationController
     @usersession = Usersession.new(usersession_params)
 
     if @usersession.save
-      render json: @usersession, status: :created, location: @usersession
+      render json: @usersession, status: :created, location: api_v1_usersessions_url(@usersession)
     else
       render json: @usersession.errors, status: :unprocessable_entity
     end

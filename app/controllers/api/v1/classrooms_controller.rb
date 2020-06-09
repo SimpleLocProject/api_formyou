@@ -1,5 +1,7 @@
 class Api::V1::ClassroomsController < Api::ApplicationController
   before_action :set_classroom, only: [:show, :update, :destroy]
+  before_action :is_admin?, only: [:create, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /classrooms
   def index

@@ -1,6 +1,8 @@
 class Api::V1::CoursesController < Api::ApplicationController
 
   before_action :set_course, only: [:show, :update, :destroy]
+  before_action :is_admin?, only: [:create, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
 
   # GET /courses
   def index
@@ -19,7 +21,7 @@ class Api::V1::CoursesController < Api::ApplicationController
     @course = Course.new(course_params)
 
     if @course.save
-      render json: @course, status: :created, location: @course
+      render json: @course, status: :created, location: api_v1_courses_url(@course)
     else
       render json: @course.errors, status: :unprocessable_entity
     end

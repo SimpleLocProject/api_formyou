@@ -1,5 +1,6 @@
 class Api::V1::CategoriesController < Api::ApplicationController
   before_action :set_category, only: [:show, :update, :destroy]
+  before_action :is_admin?, :authenticate_user!
 
   # GET /categories
   def index
