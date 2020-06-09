@@ -6,4 +6,5 @@ class ApplicationController < ActionController::API
           def sanitize_devise_params
             devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :can_access, :is_admin, :is_teacher])
           end
+
 end

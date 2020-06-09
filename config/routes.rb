@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users, defaults: { format: :json },
   path: '',
   path_names: {
@@ -12,6 +13,9 @@ Rails.application.routes.draw do
       get '/profile', to: "profile#show"
       resources :classrooms
       resources :categories
+      resources :courses
+      resources :usersessions
+      resources :sessions
     end
   end
 end
