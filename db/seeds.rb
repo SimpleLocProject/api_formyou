@@ -90,7 +90,7 @@ end
 # Creation des User Sessions
 5.times do
 
-  Usersession.create! do |usersession|
+  Usersession.create do |usersession|
     usersession.note = rand(1...20)
     usersession.student_id = User.is_student.sample.id
     usersession.session_id = Session.all.sample.id
