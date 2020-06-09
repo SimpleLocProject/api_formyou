@@ -38,8 +38,6 @@ yarn-debug.log*
 coverage
 /public/**/*.gz
 
-log/*
-tmp/*
 .rakeTasks
 .ruby-version
 
