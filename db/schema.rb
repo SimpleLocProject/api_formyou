@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2020_06_08_203101) do
 
   create_table "sessions", force: :cascade do |t|
     t.date "begin_date"
-    t.integer "availables_seats"
+    t.integer "availables_seats", default: 20
     t.bigint "course_id", null: false
     t.bigint "classroom_id", null: false
     t.datetime "created_at", precision: 6, null: false

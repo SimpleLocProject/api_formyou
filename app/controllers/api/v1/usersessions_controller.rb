@@ -18,7 +18,6 @@ class Api::V1::UsersessionsController < Api::ApplicationController
   # POST /usersessions
   def create
     @usersession = Usersession.new(usersession_params)
-
     if @usersession.save
       render json: @usersession, status: :created, location: api_v1_usersessions_url(@usersession)
     else
