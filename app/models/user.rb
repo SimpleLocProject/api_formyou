@@ -4,6 +4,8 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
   has_many :usersessions
+  validates :first_name, presence: true
+  validates :last_name, presence: true 
 
   scope :is_teacher, -> { where(is_teacher: 1) } # User.is_teacher -> Renvoit la liste des profs
   scope :is_admin, -> { where(is_admin: 1) } # User.is_admin -> Renvoit la liste des profs
