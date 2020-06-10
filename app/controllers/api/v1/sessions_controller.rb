@@ -4,19 +4,18 @@ class Api::V1::SessionsController < Api::ApplicationController
   before_action :authenticate_user!
 
 
-  # GET /sessions
+  # GET courses/:courses_id/sessions
   def index
-    @sessions = Session.all
-
+    @sessions = Session.where(course_id: params[:course_id])
     render json: @sessions
   end
 
-  # GET /sessions/1
+  # GET course/:courses_id/sessions/1
   def show
     render json: @session
   end
 
-  # POST /sessions
+  # POST course/:courses_id/sessions
   def create
     @session = Session.new(session_params)
 
@@ -27,7 +26,7 @@ class Api::V1::SessionsController < Api::ApplicationController
     end
   end
 
-  # PATCH/PUT /sessions/1
+  # PATCH/PUT course/:courses_id/sessions/1
   def update
     if @session.update(session_params)
       render json: @session
@@ -36,9 +35,16 @@ class Api::V1::SessionsController < Api::ApplicationController
     end
   end
 
-  # DELETE /sessions/1
+  # DELETE course/:courses_id/sessions/1
   def destroy
     @session.destroy
+  end
+
+  # All sessions GET /sessions
+  def all
+    @sessions = Session.all
+
+    render json: @sessions
   end
 
   private

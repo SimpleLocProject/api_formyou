@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   devise_for :users, defaults: { format: :json },
   path: '',
   path_names: {
@@ -11,11 +12,13 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       get '/profile', to: "profile#show"
+      get '/sessions', to: "sessions#all"
       resources :classrooms
       resources :categories
-      resources :courses
+      resources :courses do
+        resources :sessions
+      end
       resources :usersessions
-      resources :sessions
     end
   end
 end
