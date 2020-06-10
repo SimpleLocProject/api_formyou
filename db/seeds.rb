@@ -27,6 +27,17 @@
   end
 end
 
+5.times do
+  User.create! do |user|
+    user.first_name = Faker::Name.first_name
+    user.last_name = Faker::Name.last_name
+    user.email = Faker::Internet.email
+    user.password = "123456"
+    user.password_confirmation = "123456"
+    user.can_access = 0
+  end
+end
+
 # Creation des Teacher
 5.times do
   User.create! do |user|
