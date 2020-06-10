@@ -40,18 +40,29 @@ end
   end
 end
 
-# Creation des Admin
-2.times do
-  User.create! do |user|
-    user.first_name = Faker::Name.first_name
-    user.last_name = Faker::Name.last_name
-    user.email = Faker::Internet.email
-    user.password = "123456"
-    user.password_confirmation = "123456"
-    user.can_access = 1
-    user.is_admin = 1
-  end
-end
+User.create(
+  first_name: "Van",
+  last_name: "Wilder",
+  email: "student@yopmail.com",
+  password: "123456",
+  can_access: true,
+)
+User.create(
+  first_name: "Walter",
+  last_name: "White",
+  email: "teacher@yopmail.com",
+  password: "123456",
+  can_access: true,
+  is_teacher: true,
+)
+User.create(
+  first_name: "Jean-Michel",
+  last_name: "Admin",
+  email: "admin@yopmail.com",
+  password: "123456",
+  can_access: true,
+  is_admin: true,
+)
 
 # Création des catégories
 Category.create!(:name => "Javascript")
