@@ -1,4 +1,5 @@
 class  ApplicationController < ActionController::Base
+  skip_before_action :verify_authenticity_token
   respond_to :json
   before_action :sanitize_devise_params, if: :devise_controller?
      protected
