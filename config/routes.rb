@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     sign_out: 'logout',
     registration: 'signup'
   }
+  get '/newUsers', to: "users#newUsers"
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
