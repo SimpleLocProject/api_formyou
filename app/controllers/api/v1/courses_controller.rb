@@ -1,8 +1,8 @@
 class Api::V1::CoursesController < Api::ApplicationController
 
-  # before_action :set_course, only: [:show, :update, :destroy]
-  # before_action :is_admin?, only: [:create, :update, :destroy]
-  # before_action :authenticate_user!, except: [:index]
+  before_action :set_course, only: [:show, :update, :destroy]
+  before_action :is_admin?, only: [:create, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /courses
   def index
