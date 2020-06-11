@@ -7,7 +7,7 @@ class Api::V1::CoursesController < Api::ApplicationController
   # GET /courses
   def index
     @courses = Course.includes(:categories)
-    render json: @courses.to_json(:include => :categories)
+    render json: @courses.to_json(include: [:categories, :sessions])
     # render json: @courses
   end
 
