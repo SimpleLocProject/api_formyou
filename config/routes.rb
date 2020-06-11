@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   }
   get '/newUsers', to: "users#newUsers"
   get '/teachers', to: "users#teachers"
+  get '/teacher/courses', to: "users#teacher_courses"
+  get '/teacher/sessions', to: "users#teacher_sessions"
 
   resources :users
 

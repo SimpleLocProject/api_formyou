@@ -49,6 +49,16 @@ class UsersController < ApplicationController
     render json: @teachers
   end
 
+  def teacher_courses
+    @courses = Course.where(teacher_id: current_user.id)
+    render json: @courses
+  end
+
+  def teacher_sessions
+    @sessions = Session.where(course_id: Course.find_by_teacher_id(current_user.id))
+    render json: @sessions
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
