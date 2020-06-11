@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     registration: 'signup'
   }
   get '/newUsers', to: "users#newUsers"
+  resources :users
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
