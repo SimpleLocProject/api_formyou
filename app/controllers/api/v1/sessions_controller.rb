@@ -44,7 +44,7 @@ class Api::V1::SessionsController < Api::ApplicationController
   def all
     @sessions = Session.all
     
-    render json: @sessions.to_json(include: :course)
+    render json: @sessions.to_json(include: [:course, :usersessions])
   end
 
   private
