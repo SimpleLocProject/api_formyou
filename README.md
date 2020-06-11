@@ -1,4 +1,4 @@
-# Api_Rails_6_Boilerplate
+# Api_FormYou
 
 # Fonctionne de pair avec l'app FRONT, bien suivre les commandes du readme SVP
 
