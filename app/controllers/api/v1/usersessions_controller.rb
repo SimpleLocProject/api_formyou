@@ -1,13 +1,13 @@
 class Api::V1::UsersessionsController < Api::ApplicationController
 
   before_action :set_usersession, only: [:show, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
 
   # GET /usersessions
   def index
     @usersessions = Usersession.all
 
-    render json: @usersessions
+    render json: @usersessions.to_json(include: :student)
   end
 
   # GET /usersessions/1
