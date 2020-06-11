@@ -4,6 +4,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
   has_many :usersessions
+  has_many :sessions, through: :usersessions
   validates :first_name, presence: true
   validates :last_name, presence: true 
 
