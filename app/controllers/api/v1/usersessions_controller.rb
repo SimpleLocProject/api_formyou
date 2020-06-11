@@ -37,6 +37,8 @@ class Api::V1::UsersessionsController < Api::ApplicationController
   # DELETE /usersessions/1
   def destroy
     @usersession.destroy
+    @usersessions = Usersession.all
+    render json: @usersessions
   end
 
   private
