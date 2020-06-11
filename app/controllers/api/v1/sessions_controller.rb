@@ -46,7 +46,12 @@ class Api::V1::SessionsController < Api::ApplicationController
     
     render json: @sessions.to_json(include: :course)
   end
-
+  
+  def teacher_sessions
+    @sessions = Session.where(course_id: Course.find_by_teacher_id(current_user.id))
+    render json: @sessions
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_session

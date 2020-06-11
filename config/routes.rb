@@ -9,13 +9,13 @@ Rails.application.routes.draw do
   }
   get '/newUsers', to: "users#newUsers"
   get '/teachers', to: "users#teachers"
-  get '/teacher/courses', to: "users#teacher_courses"
-  get '/teacher/sessions', to: "users#teacher_sessions"
-
+  
   resources :users
-
+  
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      get '/teacher/courses', to: "courses#teacher_courses"
+      get '/teacher/sessions', to: "sessions#teacher_sessions"
       get '/profile', to: "profile#show"
       get '/sessions', to: "sessions#all"
       resources :classrooms

@@ -40,7 +40,12 @@ class Api::V1::CoursesController < Api::ApplicationController
   def destroy
     @course.destroy
   end
-
+  
+  def teacher_courses
+    @courses = Course.where(teacher_id: current_user.id)
+    render json: @courses
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
