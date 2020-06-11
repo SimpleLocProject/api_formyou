@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   devise_for :users, defaults: { format: :json },
   path: '',
   path_names: {
@@ -9,6 +8,7 @@ Rails.application.routes.draw do
     registration: 'signup'
   }
   get '/newUsers', to: "users#newUsers"
+  get '/teachers', to: "users#teachers"
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
