@@ -7,50 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-# Category.destroy_all
-# Course.destroy_all
-# CourseCategories.destroy_all
-# Classroom.destroy_all
-# Session.destroy_all
-# Usersession.destroy_all
-# User.destroy_all
+Category.destroy_all
+Session.destroy_all
+Course.destroy_all
+CourseCategory.destroy_all
+Classroom.destroy_all
+Usersession.destroy_all
+User.destroy_all
 
-# Creation des utilisateurs
-5.times do
-  User.create! do |user|
-    user.first_name = Faker::Name.first_name
-    user.last_name = Faker::Name.last_name
-    user.email = Faker::Internet.email
-    user.password = "123456"
-    user.password_confirmation = "123456"
-    user.can_access = 1
-  end
-end
-
-5.times do
-  User.create! do |user|
-    user.first_name = Faker::Name.first_name
-    user.last_name = Faker::Name.last_name
-    user.email = Faker::Internet.email
-    user.password = "123456"
-    user.password_confirmation = "123456"
-    user.can_access = 0
-  end
-end
-
-# Creation des Teacher
-5.times do
-  User.create! do |user|
-    user.first_name = Faker::Name.first_name
-    user.last_name = Faker::Name.last_name
-    user.email = Faker::Internet.email
-    user.password = "123456"
-    user.password_confirmation = "123456"
-    user.can_access = 1
-    user.is_teacher = 1
-  end
-end
-
+#Usable users
 User.create(
   first_name: "Van",
   last_name: "Wilder",
@@ -75,42 +40,95 @@ User.create(
   is_admin: true,
 )
 
+
+# Users to validate in adminboard
+2.times do
+  User.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    password: "123456",
+    password_confirmation: "123456",
+    can_access: false,
+    )
+end
+
+2.times do
+  User.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    password: "123456",
+    password_confirmation: "123456",
+    can_access: false,
+    is_teacher: true,
+    )
+end
+
+2.times do
+  User.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    password: "123456",
+    password_confirmation: "123456",
+    can_access: false,
+    is_admin: true,
+    )
+end
+
+#students
+50.times do
+  User.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    password: "123456",
+    password_confirmation: "123456",
+    can_access: true,
+    )
+end
+
 # Création des catégories
-Category.create!(:name => "Javascript")
-Category.create!(:name => "PHP")
-Category.create!(:name => "Management")
+Category.create(name: "Javascript")
+Category.create(name: "Ruby on Rails")
+Category.create(name: "React JS")
+Category.create(name: "Management")
 
 # Création des cours
-Course.create(title: "Cours 1", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.sample.id)
-Course.create(title: "Cours 2", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.sample.id)
-Course.create(title: "Cours 3", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.sample.id)
-Course.create(title: "Cours 4", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.sample.id)
+adj = ["Débutant", "Intermédiaire", "Confirmé", "Expert"]
+5.times do
+  Course.create(title: "#{Category.all.sample.name + " " + adj.sample}", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.sample.id)
+end
+
+adj = ["Débutant", "Intermédiaire", "Confirmé", "Expert"]
+3.times do
+  Course.create(title: "#{Category.all.sample.name + " " + adj.sample}", description: Faker::Lorem.paragraph_by_chars, teacher_id: User.is_teacher.find_by(email:"teacher@yopmail.com"))
+end
 
 # Création des catégories
-CourseCategory.create(course_id: Course.all.sample.id, category_id: Category.all.sample.id)
-CourseCategory.create(course_id: Course.all.sample.id, category_id: Category.all.sample.id)
-CourseCategory.create(course_id: Course.all.sample.id, category_id: Category.all.sample.id)
-CourseCategory.create(course_id: Course.all.sample.id, category_id: Category.all.sample.id)
+10.times do  
+  CourseCategory.create(course_id: Course.all.sample.id, category_id: Category.all.sample.id)
+end
 
 # Création des Classroom
-Classroom.create(name: "ClassRoom 1")
-Classroom.create(name: "ClassRoom 2")
-Classroom.create(name: "ClassRoom 3")
-Classroom.create(name: "ClassRoom 4")
+10.times do |i|
+  Classroom.create(name: "ClassRoom #{i+1}")
+end
+
 
 # Creation des sessions
-20.times do
-  Session.create! do |session|
-    session.course_id = Course.all.sample.id
-    session.begin_date = Faker::Date.forward(days: 40)
-    session.course_id = Course.all.sample.id
-    session.classroom_id = Classroom.all.sample.id
-  end
+170.times do
+  Session.create(
+    begin_date: Faker::Date.between(from: 40.days.ago, to: 40.days.from_now),
+    course_id: Course.all.sample.id,
+    classroom_id: Classroom.all.sample.id,
+    availables_seats: rand(1...20)
+  )
 end
 
 # Creation des User Sessions
-20.times do
-
+500.times do
   Usersession.create do |usersession|
     usersession.note = rand(1...20)
     usersession.student_id = User.is_student.sample.id
