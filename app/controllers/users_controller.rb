@@ -43,6 +43,11 @@ class UsersController < ApplicationController
     render json: @newUsers
   end
 
+  def teachers
+    @teachers = User.where(is_teacher: true)
+    render json: @teachers
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
