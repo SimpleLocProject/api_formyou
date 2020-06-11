@@ -34,9 +34,10 @@ class UsersController < ApplicationController
   end
 
   # DELETE /users/1
-  # def destroy
-  #   @user.destroy
-  # end
+  def destroy
+    @user.destroy
+    render json: @user
+  end
 
   def newUsers
     @newUsers = User.where(can_access: false)
