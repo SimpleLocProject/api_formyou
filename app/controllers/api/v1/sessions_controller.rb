@@ -1,13 +1,13 @@
 class Api::V1::SessionsController < Api::ApplicationController
   before_action :set_session, only: [:show, :update, :destroy]
   before_action :is_admin?, only: [:create, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show, :all]
 
 
   # GET courses/:courses_id/sessions
   def index
     @sessions = Session.where(course_id: params[:course_id])
-    render json: @sessions
+    render json: @sessions.to_json(include: :usersessions)
   end
 
   # GET course/:courses_id/sessions/1
@@ -43,8 +43,8 @@ class Api::V1::SessionsController < Api::ApplicationController
   # All sessions GET /sessions
   def all
     @sessions = Session.all
-
-    render json: @sessions
+    
+    render json: @sessions.to_json(include: :course)
   end
 
   private

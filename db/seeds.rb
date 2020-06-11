@@ -99,18 +99,17 @@ Classroom.create(name: "ClassRoom 3")
 Classroom.create(name: "ClassRoom 4")
 
 # Creation des sessions
-5.times do
-
+20.times do
   Session.create! do |session|
     session.course_id = Course.all.sample.id
-    session.begin_date = Time.now
+    session.begin_date = Faker::Date.forward(days: 40)
     session.course_id = Course.all.sample.id
     session.classroom_id = Classroom.all.sample.id
   end
 end
 
 # Creation des User Sessions
-5.times do
+20.times do
 
   Usersession.create do |usersession|
     usersession.note = rand(1...20)
