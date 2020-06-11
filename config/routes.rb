@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/newUsers', to: "users#newUsers"
   get '/teachers', to: "users#teachers"
 
+  resources :users
+
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       get '/profile', to: "profile#show"
